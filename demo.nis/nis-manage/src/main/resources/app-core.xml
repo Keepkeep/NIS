@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+   
+   <!-- 数据源 -->
+   <bean id="ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+			<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+			<property name="url" value="jdbc:mysql://localhost:3306/nis?useUnicode=true&amp;characterEncoding=utf8" />
+			<property name="username" value="root" />
+			<property name="password" value="root" />
+	</bean>
+   <!-- EntityManagerFactory  -->
+   <bean id="entityManager" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+			<property name="dataSource" ref="ds" /> <!-- 数据源 -->
+			<property name="packagesToScan" value="demo.users.bean" /> <!-- 映射信息 扫描JPA注解 -->
+			<property name="jpaVendorAdapter" ref="jpavendoradapter" ></property><!-- 其他特性 -->
+	</bean>
+	
+	<bean id="jpavendoradapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+			<property name="databasePlatform"  value="org.hibernate.dialect.MySQL5Dialect" />  <!-- 数据库对应的方言类 -->
+			<property name="database" value="MYSQL"/>
+			<property name="generateDdl" value="true" />
+			<property name="showSql" value="true" />
+	</bean>
+   <!-- 事务管理器 -->
+   <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManager"></property>
+	</bean>
+   <!-- JPA 扫描 仓储接口  -->
+   <jpa:repositories base-package="demo.dao" entity-manager-factory-ref="entityManager" transaction-manager-ref="transactionManager"></jpa:repositories>
+	
+   <!-- 业务组件扫描  事务支持  -->
+   <context:annotation-config></context:annotation-config>
+	<context:component-scan base-package="demo.service"></context:component-scan>
+	<tx:annotation-driven/>
+</beans>

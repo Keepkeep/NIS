@@ -1,0 +1,60 @@
+用户管理(Users)
+uid    ---用户ID
+uname   ---用户姓名
+utype   ----所属类型
+
+
+全局分类：
+	区域管理表(area)
+		区域id  ---aid
+		区域名称  --aname	
+		时间排序  --atime
+		是否启用   --astate
+	商圈管理表(business)
+		商圈ID  ---bid
+		区域id  ---aid
+		商圈名称  ---bname
+		时间排序  --btime
+		是否启用   --bstate
+		
+	状态管理表(state)
+		状态id  ---sid
+		状态名称  ---sname
+		时间排序  --stime
+		是否启用   --sstate
+		
+	楼型管理表(htype)
+		楼型id  ---hid
+		楼型名称   ---hname
+		时间排序  --htime
+		是否启用   --hstate
+		
+	类型管理表(type) 
+		类型ID  --tid
+		类型名称  ---tname
+		时间排序  --ttime
+		是否启用   --tstate
+		
+	装修度管理表(decorate)
+		装饰度id  ---did
+		装饰度名称 ---dname
+		时间排序  --dtime
+		是否启用   --dstate
+		
+	新房图库分类表(nhouse)
+		分类ID  ---nid
+		分类名称  ---nname
+		时间排序  --ntime
+		是否启用   --nstate
+		
+	按揭利率(rate)
+		利率id  ---rid
+		利率性质  ---rnature
+		利率名称   ---rname
+		利率   ---nature
+		时间排序  --rtime
+		是否启用   --rstate
+
+	
+		
+	
